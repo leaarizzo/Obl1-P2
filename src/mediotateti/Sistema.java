@@ -3,7 +3,7 @@ package mediotateti;
 public class Sistema {
 
     public static void main(String[] args) {
-        //primera prueba
+        //primera prueba peneeeee
     }
     
 }
