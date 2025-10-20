@@ -2,7 +2,6 @@ package mediotateti;
 
 import java.util.Scanner;
 
-
 public class Interfaz {
 
     public static void menu(Sistema sistema) {
@@ -22,19 +21,27 @@ public class Interfaz {
                 case 1:
                     System.out.println("Ingrese Nombre");
                     String nombre = in.nextLine();
-                    while (nombre == "") {
+                    while ("".equals(nombre)) {
                         System.out.println("Vuelva a ingresar Nombre, no se permite el espacio vacio");
                         nombre = in.nextLine();
                     }
                     System.out.println("Ingrese Edad");
-                    int edad = in.nextInt();
-                    while (edad == 0) {
-                        System.out.println("Vuelva a ingresar Edad, no se permite el espacio vacio");
-                        edad = in.nextInt();
-                    }
+                    int edad = ingresarNum(0, 120);
                     sistema.registrarJugador(nombre, edad);
                     break;
                 case 2:
+                    mostarLista(sistema);
+                    System.out.print("Elija al jugador 1: ");
+                    int jugador1 = ingresarNum(1, sistema.getListaJugadores().size());
+
+                    int jugador2 = ingresarNum(1, sistema.getListaJugadores().size());
+                    while (jugador2 == jugador1) {
+                        System.out.println("No puede ser el mismo.");
+                        jugador2 = ingresarNum(1, sistema.getListaJugadores().size());
+                    }
+
+                    sistema.getListaJugadores().get(jugador1);
+                    sistema.getListaJugadores().get(jugador1);
 
                     break;
                 case 3:
@@ -51,4 +58,33 @@ public class Interfaz {
         }
         System.out.println("Gracias por confiar en nosotros");
     }
+
+    public static void mostarLista(Sistema sistema) {
+        for (int i = 0; i < sistema.getListaJugadores().size(); i++) {
+            System.out.println((i + 1) + " - " + sistema.getListaJugadores().get(i).getNombre());
+        }
+    }
+
+    public static int ingresarNum(int min, int max) {
+        Scanner in = new Scanner(System.in);
+        int numero = 0;
+        boolean valido = false;
+
+        while (!valido) {
+            System.out.print("Ingrese un número entre " + min + " y " + max + ": ");
+            try {
+                numero = in.nextInt();
+                if (numero >= min && numero <= max) {
+                    valido = true;
+                } else {
+                    System.out.println("Número fuera de rango. Intente nuevamente.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: debe ingresar un número entero.");
+                in.nextLine(); 
+            }
+        }
+        return numero;
+    }
+
 }
