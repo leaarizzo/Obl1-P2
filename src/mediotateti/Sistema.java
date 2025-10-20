@@ -3,15 +3,17 @@ package mediotateti;
 import java.util.ArrayList;
 
 public class Sistema {
+
+    private ArrayList<Jugador> listaJugadores = new ArrayList<>();
+
     public static void main(String[] args) {
-        Sistema sistema=new Sistema();
-        Interfaz.menu();
+        Sistema sistema = new Sistema();
+        Interfaz.menu(sistema);;
     }
-    ArrayList<Jugador> listaJugadores=null;
-    public static void registrarJugador(String nombre,int edad){
-    Jugador nuevo= new Jugador(nombre,edad);
-    listaJugadores.add(nuevo);
+
+    public void registrarJugador(String nombre, int edad) {
+        listaJugadores.add(new Jugador(nombre, edad));
         System.out.println("Jugador registrado correctamente");
     }
-    
+
 }

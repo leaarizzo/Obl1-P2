@@ -1,20 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mediotateti;
 
 import java.util.Scanner;
 
-/**
- *
- * @author bruno
- */
+
 public class Interfaz {
-    public static   void menu(){
+
+    public static void menu(Sistema sistema) {
         Scanner in = new Scanner(System.in);
-        int opcion=0;
-        while(opcion!=5){
+        int opcion = 0;
+        while (opcion != 5) {
             System.out.println("MEDIO-TATETI MENU PRINCIPAL");
             System.out.println("------------------------\n");
             System.out.println("1. Registrar Jugador");
@@ -22,40 +16,39 @@ public class Interfaz {
             System.out.println("3. Continuaicon de partida");
             System.out.println("4. Mostrar ranking e invictos");
             System.out.println("5. Fin");
-            opcion= in.nextInt();
+            opcion = in.nextInt();
             in.nextLine();
-            switch (opcion){
+            switch (opcion) {
                 case 1:
                     System.out.println("Ingrese Nombre");
-                    String nombre= in.nextLine();
-                    while(nombre==""){
+                    String nombre = in.nextLine();
+                    while (nombre == "") {
                         System.out.println("Vuelva a ingresar Nombre, no se permite el espacio vacio");
-                        nombre= in.nextLine();
+                        nombre = in.nextLine();
                     }
                     System.out.println("Ingrese Edad");
-                    int edad= in.nextInt();
-                    while(edad==0){
+                    int edad = in.nextInt();
+                    while (edad == 0) {
                         System.out.println("Vuelva a ingresar Edad, no se permite el espacio vacio");
-                        edad= in.nextInt();
+                        edad = in.nextInt();
                     }
-                    Sistema.registrarJugador(nombre,edad);
+                    sistema.registrarJugador(nombre, edad);
                     break;
                 case 2:
-                
+
                     break;
                 case 3:
-                
+
                     break;
                 case 4:
-                
+
                     break;
                 default:
                     System.out.println("Opcion incorrecta, opciones posibles (1-5)");
                     break;
-                }
-            
             }
-         System.out.println("Gracias por confiar en nosotros");   
-        }
-     }
 
+        }
+        System.out.println("Gracias por confiar en nosotros");
+    }
+}
