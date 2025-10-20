@@ -15,8 +15,8 @@ public class Interfaz {
             System.out.println("3. Continuaicon de partida");
             System.out.println("4. Mostrar ranking e invictos");
             System.out.println("5. Fin");
-            opcion = in.nextInt();
-            in.nextLine();
+            opcion = ingresarNum(1, 5);
+
             switch (opcion) {
                 case 1:
                     System.out.println("Ingrese Nombre");
@@ -37,20 +37,15 @@ public class Interfaz {
                         negro = ingresarNum(1, sistema.getListaJugadores().size());
                     }
 
-                    Partida partida = new Partida(sistema.getListaJugadores().get(blanco), sistema.getListaJugadores().get(negro));
-                    partida.getTablero().mostrarTablero(true, true);
-                    String jugada = noVacio();
-                    boolean partidaTerminada = false;
-                    if (jugada.toUpperCase().equals("X")) {
-                        System.out.println("La partida termino, el jugador blanco se rindio");
-                        //agregarle una derrota al blanco
-                        partidaTerminada = true;
-                    }
-                    
-                    while (!partidaTerminada) {
-                        partida.cambiarTurno();
+                    Partida partida = new Partida(
+                            sistema.getListaJugadores().get(blanco),
+                            sistema.getListaJugadores().get(negro));
+
+                    //seguir
+                    while (!partida.verificarTerminada()) {
                         partida.getTablero().mostrarTablero(partida.getTablero().getMostrarTitulos(), partida.getTurnoBlanco());
-                        jugada = noVacio();
+                        String jugada = noVacio();
+                        partida.jugarTurno(jugada);
                     }
 
                     break;
@@ -60,8 +55,8 @@ public class Interfaz {
                 case 4:
 
                     break;
-                default:
-                    System.out.println("Opcion incorrecta, opciones posibles (1-5)");
+                case 5:
+
                     break;
             }
 
@@ -81,16 +76,16 @@ public class Interfaz {
         boolean valido = false;
 
         while (!valido) {
-            System.out.print("Ingrese un número entre " + min + " y " + max + ": ");
+            System.out.print("Ingrese un numero entre " + min + " y " + max + ": ");
             try {
                 numero = in.nextInt();
                 if (numero >= min && numero <= max) {
                     valido = true;
                 } else {
-                    System.out.println("Número fuera de rango. Intente nuevamente.");
+                    System.out.println("Numero fuera de rango. Intente nuevamente.");
                 }
             } catch (Exception e) {
-                System.out.println("Error: debe ingresar un número entero.");
+                System.out.println("Error: debe ingresar un numero entero.");
                 in.nextLine();
             }
         }
