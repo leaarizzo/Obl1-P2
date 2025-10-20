@@ -9,5 +9,6 @@ package mediotateti;
  * @author leaco
  */
 public class Tablero {
-    
+  private String matriz;
+  private boolean mostrarTitulos;
 }

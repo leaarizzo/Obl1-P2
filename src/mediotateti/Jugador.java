@@ -17,7 +17,7 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-
+ 
     public void setNombre(String Nombre) {
         this.nombre = Nombre;
     }
