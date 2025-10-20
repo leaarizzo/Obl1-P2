@@ -20,28 +20,38 @@ public class Interfaz {
             switch (opcion) {
                 case 1:
                     System.out.println("Ingrese Nombre");
-                    String nombre = in.nextLine();
-                    while ("".equals(nombre)) {
-                        System.out.println("Vuelva a ingresar Nombre, no se permite el espacio vacio");
-                        nombre = in.nextLine();
-                    }
+                    String nombre = noVacio();
                     System.out.println("Ingrese Edad");
                     int edad = ingresarNum(0, 120);
+
                     sistema.registrarJugador(nombre, edad);
                     break;
                 case 2:
                     mostarLista(sistema);
                     System.out.print("Elija al jugador 1: ");
-                    int jugador1 = ingresarNum(1, sistema.getListaJugadores().size());
+                    int blanco = ingresarNum(1, sistema.getListaJugadores().size());
 
-                    int jugador2 = ingresarNum(1, sistema.getListaJugadores().size());
-                    while (jugador2 == jugador1) {
+                    int negro = ingresarNum(1, sistema.getListaJugadores().size());
+                    while (negro == blanco) {
                         System.out.println("No puede ser el mismo.");
-                        jugador2 = ingresarNum(1, sistema.getListaJugadores().size());
+                        negro = ingresarNum(1, sistema.getListaJugadores().size());
                     }
 
-                    sistema.getListaJugadores().get(jugador1);
-                    sistema.getListaJugadores().get(jugador1);
+                    Partida partida = new Partida(sistema.getListaJugadores().get(blanco), sistema.getListaJugadores().get(negro));
+                    partida.getTablero().mostrarTablero(true, true);
+                    String jugada = noVacio();
+                    boolean partidaTerminada = false;
+                    if (jugada.toUpperCase().equals("X")) {
+                        System.out.println("La partida termino, el jugador blanco se rindio");
+                        //agregarle una derrota al blanco
+                        partidaTerminada = true;
+                    }
+                    
+                    while (!partidaTerminada) {
+                        partida.cambiarTurno();
+                        partida.getTablero().mostrarTablero(partida.getTablero().getMostrarTitulos(), partida.getTurnoBlanco());
+                        jugada = noVacio();
+                    }
 
                     break;
                 case 3:
@@ -81,10 +91,19 @@ public class Interfaz {
                 }
             } catch (Exception e) {
                 System.out.println("Error: debe ingresar un número entero.");
-                in.nextLine(); 
+                in.nextLine();
             }
         }
         return numero;
     }
 
+    public static String noVacio() {
+        Scanner in = new Scanner(System.in);
+        String texto = in.nextLine();
+        while ("".equals(texto)) {
+            System.out.println("Vuelva a ingresarlo, no se permite el espacio vacio");
+            texto = in.nextLine();
+        }
+        return texto;
+    }
 }
