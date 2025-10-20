@@ -15,5 +15,9 @@ public class Sistema {
         listaJugadores.add(new Jugador(nombre, edad));
         System.out.println("Jugador registrado correctamente");
     }
+    
+    public ArrayList<Jugador> getListaJugadores(){
+        return this.listaJugadores
+    }
 
 }

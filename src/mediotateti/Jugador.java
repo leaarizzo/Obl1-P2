@@ -12,6 +12,7 @@ public class Jugador {
     private String nombre;
     private int edad;
     private int ganadas;
+    private int numeroCodigo;
     private boolean invicto;
     
     public String getNombre() {
