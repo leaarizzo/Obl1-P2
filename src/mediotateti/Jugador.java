@@ -21,7 +21,7 @@ public class Jugador {
     }
 
     public void setNombre(String Nombre) {
-//        this.nombre = Nombre;
+        this.nombre = Nombre;
     }
 
     public int getEdad() {

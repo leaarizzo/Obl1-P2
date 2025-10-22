@@ -1,5 +1,6 @@
 package mediotateti;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Interfaz {
@@ -24,16 +25,18 @@ public class Interfaz {
                     System.out.println("Ingrese Edad");
                     int edad = ingresarNum(0, 120);
 
-                    sistema.registrarJugador(nombre, edad);
+                    sistema.registrarJugador(nombre, edad); //cuando se registren ya se debe ordenar alfabeticamente
+                    
                     break;
                 case 2:
-                    mostarLista(sistema);
-                    System.out.print("Elija al jugador 1: ");
+                    mostarLista(sistema); 
+                    System.out.print("Elija al jugador 1 (Blanco): ");
                     int blanco = ingresarNum(1, sistema.getListaJugadores().size());
 
+                    System.out.print("Elija al jugador 2 (Negro): ");
                     int negro = ingresarNum(1, sistema.getListaJugadores().size());
                     while (negro == blanco) {
-                        System.out.println("No puede ser el mismo.");
+                        System.out.println("No puede ser el mismo, prueba de nuevo:");
                         negro = ingresarNum(1, sistema.getListaJugadores().size());
                     }
 
@@ -41,19 +44,17 @@ public class Interfaz {
                             sistema.getListaJugadores().get(blanco),
                             sistema.getListaJugadores().get(negro));
 
-                    //seguir
-                    while (!partida.verificarTerminada()) {
-                        partida.getTablero().mostrarTablero(partida.getTablero().getMostrarTitulos(), partida.getTurnoBlanco());
-                        String jugada = noVacio();
-                        partida.jugarTurno(jugada);
-                    }
+                    jugarPartida(partida);
 
                     break;
                 case 3:
-
+                    
                     break;
                 case 4:
-
+                    
+                    mostrarRanking(sistema);
+                    mostarInvictos(sistema);
+                    
                     break;
                 case 5:
 
@@ -61,7 +62,7 @@ public class Interfaz {
             }
 
         }
-        System.out.println("Gracias por confiar en nosotros");
+        System.out.println("Hasta luego!");
     }
 
     public static void mostarLista(Sistema sistema) {
@@ -69,6 +70,15 @@ public class Interfaz {
             System.out.println((i + 1) + " - " + sistema.getListaJugadores().get(i).getNombre());
         }
     }
+    
+    public static void mostarInvictos(Sistema sistema) {
+        //agarrar e imprimir solo los de la lista de jugadores que tengan invicto == true
+    }
+    
+    public static void mostrarRanking(Sistema sistema) {
+         //agarrar e imprimir los jugadores con partidas ganadas en orden descendente
+    }
+    
 
     public static int ingresarNum(int min, int max) {
         Scanner in = new Scanner(System.in);
@@ -101,4 +111,42 @@ public class Interfaz {
         }
         return texto;
     }
+
+    private static void jugarPartida(Partida partida) {
+        Scanner in = new Scanner(System.in);
+
+        while (!partida.getIsTerminada()) {
+            String turno = "";
+            if (partida.getTurnoBlanco()) {
+                turno = "blanco (" + partida.getBlanco() + " )" ;
+            } else {
+                turno = "negro (" + partida.getNegro() + " )";
+            }
+            
+            System.out.println(partida.getTablero().toString());
+            System.out.println("Turno del " + turno);
+
+            System.out.print("Ingrese su jugada (ej...): ");
+            String jugada = noVacio().trim();
+
+            String resultado = partida.jugarTurno(jugada);
+
+            switch (resultado) {
+                case "INVALIDA":
+                    System.out.println("Jugada invalida, intente nuevamente.");
+                    break;
+                case "GANADOR":
+                    System.out.println("Hay un ganador!");
+                    break;
+                case "EMPATE":
+                    System.out.println("Empate!");
+                    break;
+            }
+        }
+
+        System.out.println(partida.getTablero().toString());
+        System.out.println("La partida termino!");
+
+    }
+    
 }
