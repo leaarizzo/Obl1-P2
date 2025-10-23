@@ -9,6 +9,8 @@ public class Interfaz {
         Scanner in = new Scanner(System.in);
         int opcion = 0;
         while (opcion != 5) {
+            System.out.println("Símbolo negro: ●");
+            System.out.println("Símbolo blanco: ○");
             System.out.println("MEDIO-TATETI MENU PRINCIPAL");
             System.out.println("------------------------");
             System.out.println("1. Registrar Jugador");
@@ -23,12 +25,12 @@ public class Interfaz {
                     String nombre = noVacio("Ingrese Nombre: ");
                     int edad = ingresarNum("Ingrese Edad: ", 0, 100);
 
-                    sistema.registrarJugador(nombre, edad); 
+                    sistema.registrarJugador(nombre, edad);
 
                     break;
                 case 2:
                     if (sistema.getListaJugadores().size() > 1) {
-                        
+
                         mostarLista(sistema);
                         int blanco = ingresarNum("Elija al jugador 1 (Blanco): ", 1, sistema.getListaJugadores().size()) - 1;
 
@@ -42,11 +44,11 @@ public class Interfaz {
                                 sistema.getListaJugadores().get(negro));
 
                         jugarPartida(partida);
-                        
+
                     } else {
-                        
+
                         System.out.println("Debe crear al menos 2 jugadores.");
-                        
+
                     }
 
                     break;

@@ -1,5 +1,8 @@
 package mediotateti;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -7,7 +10,8 @@ public class Sistema {
 
     private ArrayList<Jugador> listaJugadores = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8.name()));
         Sistema sistema = new Sistema();
         Interfaz.menu(sistema);;
     }

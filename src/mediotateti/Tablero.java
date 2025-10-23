@@ -6,7 +6,7 @@ public class Tablero {
     private boolean mostrarTitulos;
 
     public Tablero() {
-        this.mat = new String[3][3];
+        this.mat = new String[3][6];
         this.mostrarTitulos = true;
     }
 
@@ -33,9 +33,13 @@ public class Tablero {
         String titulos = "";
         
         for (int i = 0; i < mat.length; i++) {
+            String fila = "";
             for (int j = 0; j < mat[0].length; j++) {
-                
+                if (mat[i][j] == "d") {
+                    fila += 0;
+                }
             }
+            System.out.println();
         }
         
         String texto2 = texto;
