@@ -16,6 +16,13 @@ public class Jugador {
     private int numeroCodigo;
     private boolean invicto;
 
+    public Jugador(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.ganadas = 0;
+        this.invicto = true;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -32,10 +39,7 @@ public class Jugador {
         this.edad = Edad;
     }
 
-    public Jugador(String nombre, int edad) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.ganadas = 0;
-        this.invicto = true;
+    public int getGanadas(){
+        return ganadas;
     }
 }

@@ -26,10 +26,10 @@ public class Interfaz {
                     int edad = ingresarNum(0, 120);
 
                     sistema.registrarJugador(nombre, edad); //cuando se registren ya se debe ordenar alfabeticamente
-                    
+
                     break;
                 case 2:
-                    mostarLista(sistema); 
+                    mostarLista(sistema);
                     System.out.print("Elija al jugador 1 (Blanco): ");
                     int blanco = ingresarNum(1, sistema.getListaJugadores().size());
 
@@ -48,16 +48,17 @@ public class Interfaz {
 
                     break;
                 case 3:
-                    
+                    //hacer
                     break;
                 case 4:
-                    
+
                     mostrarRanking(sistema);
+                    System.out.println("");
                     mostarInvictos(sistema);
-                    
+
                     break;
                 case 5:
-
+                        System.out.println("Fin del programa.");
                     break;
             }
 
@@ -70,15 +71,18 @@ public class Interfaz {
             System.out.println((i + 1) + " - " + sistema.getListaJugadores().get(i).getNombre());
         }
     }
-    
+
     public static void mostarInvictos(Sistema sistema) {
-        //agarrar e imprimir solo los de la lista de jugadores que tengan invicto == true
+        for (int i = 0; i < sistema.getInvictos().size(); i++) {
+            System.out.println((i + 1) + " - " + sistema.getInvictos().get(i).getNombre());
+        }
     }
-    
+
     public static void mostrarRanking(Sistema sistema) {
-         //agarrar e imprimir los jugadores con partidas ganadas en orden descendente
+        for (int i = 0; i < sistema.getRanking().size(); i++) {
+            System.out.println((i + 1) + " - " + sistema.getListaJugadores().get(i).getNombre() + " - " + sistema.getRanking().get(i).getGanadas());
+        }
     }
-    
 
     public static int ingresarNum(int min, int max) {
         Scanner in = new Scanner(System.in);
@@ -118,11 +122,11 @@ public class Interfaz {
         while (!partida.getIsTerminada()) {
             String turno = "";
             if (partida.getTurnoBlanco()) {
-                turno = "blanco (" + partida.getBlanco() + " )" ;
+                turno = "blanco (" + partida.getBlanco() + " )";
             } else {
                 turno = "negro (" + partida.getNegro() + " )";
             }
-            
+
             System.out.println(partida.getTablero().toString());
             System.out.println("Turno del " + turno);
 
@@ -148,5 +152,5 @@ public class Interfaz {
         System.out.println("La partida termino!");
 
     }
-    
+
 }

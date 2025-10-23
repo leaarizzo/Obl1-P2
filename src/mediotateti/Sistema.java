@@ -16,10 +16,16 @@ public class Sistema {
         System.out.println("Jugador registrado correctamente");
     }
     
+    
     public ArrayList<Jugador> getListaJugadores(){
         return this.listaJugadores;
     }
     
+    public ArrayList<Jugador> getInvictos(){
+        return this.listaJugadores; // esto es para q no de error en realidad hay q hacer q cree un nuevo arraylist y entrgue eso
+    }
     
-
+    public ArrayList<Jugador> getRanking(){
+        return this.listaJugadores; // esto es para q no de error en realidad hay q hacer q cree un nuevo arraylist y entrgue eso
+    }
 }
