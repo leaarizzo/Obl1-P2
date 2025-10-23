@@ -10,41 +10,44 @@ public class Interfaz {
         int opcion = 0;
         while (opcion != 5) {
             System.out.println("MEDIO-TATETI MENU PRINCIPAL");
-            System.out.println("------------------------\n");
+            System.out.println("------------------------");
             System.out.println("1. Registrar Jugador");
             System.out.println("2. Jugar partida normal");
             System.out.println("3. Continuaicon de partida");
             System.out.println("4. Mostrar ranking e invictos");
-            System.out.println("5. Fin");
-            opcion = ingresarNum(1, 5);
+            System.out.println("5. Fin \n");
+            opcion = ingresarNum("Ingrese una opcion (1-5): ", 1, 5);
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Ingrese Nombre");
-                    String nombre = noVacio();
-                    System.out.println("Ingrese Edad");
-                    int edad = ingresarNum(0, 120);
+                    String nombre = noVacio("Ingrese Nombre: ");
+                    int edad = ingresarNum("Ingrese Edad: ", 0, 100);
 
-                    sistema.registrarJugador(nombre, edad); //cuando se registren ya se debe ordenar alfabeticamente
+                    sistema.registrarJugador(nombre, edad); 
 
                     break;
                 case 2:
-                    mostarLista(sistema);
-                    System.out.print("Elija al jugador 1 (Blanco): ");
-                    int blanco = ingresarNum(1, sistema.getListaJugadores().size());
+                    if (sistema.getListaJugadores().size() > 1) {
+                        
+                        mostarLista(sistema);
+                        int blanco = ingresarNum("Elija al jugador 1 (Blanco): ", 1, sistema.getListaJugadores().size()) - 1;
 
-                    System.out.print("Elija al jugador 2 (Negro): ");
-                    int negro = ingresarNum(1, sistema.getListaJugadores().size());
-                    while (negro == blanco) {
-                        System.out.println("No puede ser el mismo, prueba de nuevo:");
-                        negro = ingresarNum(1, sistema.getListaJugadores().size());
+                        int negro = ingresarNum("Elija al jugador 2 (Negro): ", 1, sistema.getListaJugadores().size()) - 1;
+                        while (negro == blanco) {
+                            negro = ingresarNum("No puede ser el mismo, prueba de nuevo:", 1, sistema.getListaJugadores().size());
+                        }
+
+                        Partida partida = new Partida(
+                                sistema.getListaJugadores().get(blanco),
+                                sistema.getListaJugadores().get(negro));
+
+                        jugarPartida(partida);
+                        
+                    } else {
+                        
+                        System.out.println("Debe crear al menos 2 jugadores.");
+                        
                     }
-
-                    Partida partida = new Partida(
-                            sistema.getListaJugadores().get(blanco),
-                            sistema.getListaJugadores().get(negro));
-
-                    jugarPartida(partida);
 
                     break;
                 case 3:
@@ -53,12 +56,11 @@ public class Interfaz {
                 case 4:
 
                     mostrarRanking(sistema);
-                    System.out.println("");
                     mostarInvictos(sistema);
 
                     break;
                 case 5:
-                        System.out.println("Fin del programa.");
+                    System.out.println("Fin del programa.");
                     break;
             }
 
@@ -67,30 +69,33 @@ public class Interfaz {
     }
 
     public static void mostarLista(Sistema sistema) {
+        System.out.println("Lista de Jugadores: ");
         for (int i = 0; i < sistema.getListaJugadores().size(); i++) {
             System.out.println((i + 1) + " - " + sistema.getListaJugadores().get(i).getNombre());
         }
     }
 
     public static void mostarInvictos(Sistema sistema) {
+        System.out.println("Jugadores invictos: ");
         for (int i = 0; i < sistema.getInvictos().size(); i++) {
             System.out.println((i + 1) + " - " + sistema.getInvictos().get(i).getNombre());
         }
     }
 
     public static void mostrarRanking(Sistema sistema) {
+        System.out.println("Ranking: ");
         for (int i = 0; i < sistema.getRanking().size(); i++) {
             System.out.println((i + 1) + " - " + sistema.getListaJugadores().get(i).getNombre() + " - " + sistema.getRanking().get(i).getGanadas());
         }
     }
 
-    public static int ingresarNum(int min, int max) {
+    public static int ingresarNum(String mensaje, int min, int max) {
         Scanner in = new Scanner(System.in);
         int numero = 0;
         boolean valido = false;
 
         while (!valido) {
-            System.out.print("Ingrese un numero entre " + min + " y " + max + ": ");
+            System.out.print(mensaje);
             try {
                 numero = in.nextInt();
                 if (numero >= min && numero <= max) {
@@ -106,11 +111,12 @@ public class Interfaz {
         return numero;
     }
 
-    public static String noVacio() {
+    public static String noVacio(String mensaje) {
         Scanner in = new Scanner(System.in);
+        System.out.print(mensaje);
         String texto = in.nextLine();
         while ("".equals(texto)) {
-            System.out.println("Vuelva a ingresarlo, no se permite el espacio vacio");
+            System.out.print(mensaje);
             texto = in.nextLine();
         }
         return texto;
@@ -122,7 +128,7 @@ public class Interfaz {
         while (!partida.getIsTerminada()) {
             String turno = "";
             if (partida.getTurnoBlanco()) {
-                turno = "blanco (" + partida.getBlanco() + " )";
+                turno = "blanco (" + partida.getBlanco().getNombre() + " )";
             } else {
                 turno = "negro (" + partida.getNegro() + " )";
             }
@@ -130,8 +136,7 @@ public class Interfaz {
             System.out.println(partida.getTablero().toString());
             System.out.println("Turno del " + turno);
 
-            System.out.print("Ingrese su jugada (ej...): ");
-            String jugada = noVacio().trim();
+            String jugada = noVacio("Ingrese su jugada (ej...): ").trim();
 
             String resultado = partida.jugarTurno(jugada);
 

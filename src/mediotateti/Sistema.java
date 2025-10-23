@@ -1,6 +1,7 @@
 package mediotateti;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Sistema {
 
@@ -13,19 +14,31 @@ public class Sistema {
 
     public void registrarJugador(String nombre, int edad) {
         listaJugadores.add(new Jugador(nombre, edad));
-        System.out.println("Jugador registrado correctamente");
+        listaJugadores.sort(Comparator.comparing(Jugador::getNombre));
     }
-    
-    
-    public ArrayList<Jugador> getListaJugadores(){
+
+    public ArrayList<Jugador> getListaJugadores() {
         return this.listaJugadores;
     }
-    
-    public ArrayList<Jugador> getInvictos(){
-        return this.listaJugadores; // esto es para q no de error en realidad hay q hacer q cree un nuevo arraylist y entrgue eso
+
+    public ArrayList<Jugador> getInvictos() {
+        ArrayList<Jugador> jugadoresInvictos = new ArrayList<>();
+        for (Jugador jugador : this.listaJugadores) {
+            if (jugador.getInvicto()) {
+                jugadoresInvictos.add(jugador);
+            }
+        }
+        return jugadoresInvictos;
     }
-    
-    public ArrayList<Jugador> getRanking(){
-        return this.listaJugadores; // esto es para q no de error en realidad hay q hacer q cree un nuevo arraylist y entrgue eso
+
+    public ArrayList<Jugador> getRanking() {
+        ArrayList<Jugador> ranking = new ArrayList<>();
+        for (Jugador jugador : this.listaJugadores) {
+            ranking.add(jugador);
+        }
+
+        ranking.sort(Comparator.comparingInt(Jugador::getGanadas).reversed());  //orden descendente
+
+        return ranking;
     }
 }

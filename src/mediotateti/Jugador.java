@@ -38,8 +38,18 @@ public class Jugador {
     public void setEdad(int Edad) {
         this.edad = Edad;
     }
+    
+    public boolean getInvicto() {
+        return invicto;
+    }
+
+    public void derrotado(){
+        this.invicto = false;
+    }
 
     public int getGanadas(){
         return ganadas;
     }
+    
+    
 }
