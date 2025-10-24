@@ -72,10 +72,10 @@ public class Partida {
                 //Solicitacion de Empate
                 break;
             case "B":
-                //Se colocan titulos de las columnas
+                //Se colocan titulos de las columnas y filas
                 break;
             case "N":
-                //
+                //Se ocultan los titulos de las columnas y filas
                 break;
             case "H":
                 //Jugada ganadora
