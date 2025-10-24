@@ -14,10 +14,22 @@ public class Tablero {
 
         this.mostrarTitulos = true;
     }
+    public boolean validarJugada(String jugada){
+        boolean validada=false;
+        if (jugada.length==3) {
+            if (jugada.charAt(0)=='A' || jugada.charAt(0)=='B' || jugada.charAt(0)=='C' &&
+                    (int)jugada.charAt(1)<=6 && (int)jugada.charAt(1)>=6 &&
+                    jugada.charAt(2)=='C' || jugada.charAt(2)=='D') {
+                    validada=true;
+            }
+        }
+        return validada;
+    }
 
     public boolean ingresarJugada(String jugada) {
-        return false; //aca vemos si la jugada q nos dieron tiene sentido, si lo tiene la ingresamos y devolvemos true
-        // sino, devolvemos false y no la ingresamos
+       
+        return false;
+       
     }
 
     public void titulosOnOff() {
