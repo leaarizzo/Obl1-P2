@@ -6,7 +6,12 @@ public class Tablero {
     private boolean mostrarTitulos;
 
     public Tablero() {
-        this.mat = new String[3][6];
+        this.mat = new String[][]{
+            {"CB", "CN", "DB", "DN", "GX", "GC"},
+            {"CN", "CB", "DN", "DB", "GC", "GX"},
+            {"DB", "DN", "CB", "CN", "GX", "GC"}
+        };
+
         this.mostrarTitulos = true;
     }
 

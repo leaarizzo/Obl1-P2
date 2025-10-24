@@ -9,8 +9,6 @@ public class Interfaz {
         Scanner in = new Scanner(System.in);
         int opcion = 0;
         while (opcion != 5) {
-            System.out.println("Símbolo negro: ●");
-            System.out.println("Símbolo blanco: ○");
             System.out.println("MEDIO-TATETI MENU PRINCIPAL");
             System.out.println("------------------------");
             System.out.println("1. Registrar Jugador");

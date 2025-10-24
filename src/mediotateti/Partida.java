@@ -48,16 +48,12 @@ public class Partida {
             if (tablero.hayGanador()) {
                 respuesta = "GANADOR";
                 this.isTerminada = true;
-
-            } else if (tablero.estaLleno()) {
-                
-                respuesta = "LLENO";
-                this.isTerminada = true;
-
+            } else if (true) { //poner algo aca en vez de true
+                respuesta = "EMPATE";
             } else {
                 cambiarTurno();
             }
-            
+
         } else {
             respuesta = "INVALIDA";
         }
