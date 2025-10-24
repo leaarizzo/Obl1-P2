@@ -66,19 +66,19 @@ public class Partida {
 
         switch (jugada.toUpperCase()) {
             case "X":
-
+                //Termina El Juego, Gana el rival
                 break;
             case "T":
-
+                //Solicitacion de Empate
                 break;
             case "B":
-
+                //Se colocan titulos de las columnas
                 break;
             case "N":
-
+                //
                 break;
             case "H":
-
+                //Jugada ganadora
                 break;
             default:
                 if (this.tablero.ingresarJugada(jugada)) {

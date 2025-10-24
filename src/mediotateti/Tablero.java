@@ -27,6 +27,95 @@ public class Tablero {
     public boolean hayGanador() {
         return false;
     }
+    public boolean hayCirculo(int i,int j){
+    return ((mat[i][j]!=null && mat[i][j+1]!=null) && (mat[i][j].charAt(0)=='C' && mat[i][j+1].charAt(0)=='D'));
+    }
+    public boolean hayEquis(int i,int j){ 
+    return ((mat[i][j]!=null && mat[i][j+1]!=null) && (mat[i][j].charAt(0)=='D' && mat[i][j+1].charAt(0)=='C'));
+    }
+
+    public boolean hayGanadorHorizontal() {
+        boolean hayGanadorHorizontal=false;
+        for (int i = 0; i < mat.length; i++) {
+            int circulos=0;
+            int equis=0;
+            for (int j = 0; j <mat[0].length-1; j++) {
+                if (hayCirculo(i,j)) {
+                    circulos++;
+                }
+                if (hayEquis(i,j)) {
+                    equis++;
+                }
+                if (circulos==3) {
+                    hayGanadorHorizontal=true;
+                }
+                if (equis==3) {
+                    hayGanadorHorizontal=true;
+                }
+        }
+    }
+        return hayGanadorHorizontal;
+    }
+    public boolean hayGanadorVertical(){
+        boolean hayGanadorVertical=false;
+        for (int j = 0; j <mat[0].length; j++) {
+            int circulos=0;
+            int equis=0;
+            for (int i = 0; i <mat.length-1; i++) {
+            if (hayCirculo(i,j)) {
+                    circulos++;
+            }
+                if (hayEquis(i,j)) {
+                    equis++;
+                } 
+             if (circulos==3) {
+                    hayGanadorVertical=true;
+                }
+                if (equis==3) {
+                    hayGanadorVertical=true;
+                }
+            }
+        }
+        return hayGanadorVertical;
+    }
+    public boolean hayGanadorDiagonal(){
+    boolean hayGanadorDiagonal=false;
+                for (int j = 0; j <mat[0].length; j++) {
+                if(j<3){
+                if (hayCirculo(0,j)) {
+                    if (hayCirculo(1,j+1)) {
+                       if (hayCirculo(2,j+2)) {
+                       hayGanadorDiagonal=true;
+                    }   
+                    }
+                }
+                if (hayEquis(0,j)) {
+                    if (hayEquis(1,j+1)) {
+                       if (hayEquis(2,j+2)) {
+                       hayGanadorDiagonal=true;
+                    }   
+                    }
+                }   
+            } 
+            if(j>2){
+            if (mat[0][j].charAt(0)=='D' && mat[0][j-1].charAt(0)=='C') {
+                    if (mat[1][j-1].charAt(0)=='D' && mat[1][j-2].charAt(0)=='C') {
+                       if (mat[2][j-2].charAt(0)=='D' && mat[2][j-3].charAt(0)=='C') {
+                       hayGanadorDiagonal=true;
+                    }   
+                    }
+                }
+                if (mat[0][j].charAt(0)=='C' && mat[0][j-1].charAt(0)=='D') {
+                    if (mat[1][j-1].charAt(0)=='C' && mat[1][j-2].charAt(0)=='D') {
+                       if (mat[2][j-2].charAt(0)=='C' && mat[2][j-3].charAt(0)=='D') {
+                       hayGanadorDiagonal=true;
+                    }   
+                    }
+                }
+            }
+                }
+    return hayGanadorDiagonal;
+    }
 
     private String[] celda(String pieza) {
         String[] celda = {"  ", "  ", "  "};
