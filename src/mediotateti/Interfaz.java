@@ -128,9 +128,9 @@ public class Interfaz {
         while (!partida.getIsTerminada()) {
             String turno = "";
             if (partida.getTurnoBlanco()) {
-                turno = "blanco (" + partida.getBlanco().getNombre() + " )";
+                turno = "blanco (" + partida.getBlanco().getNombre() + ", Circulos)";
             } else {
-                turno = "negro (" + partida.getNegro() + " )";
+                turno = "negro (" + partida.getNegro().getNombre() + ", Cruces)";
             }
 
             System.out.println(partida.getTablero().toString());
