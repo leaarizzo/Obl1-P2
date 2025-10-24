@@ -45,11 +45,17 @@ public class Partida {
         String respuesta = "OK";
 
         if (verificada) {
-            if (tablero.hayGanador()) {
-                respuesta = "GANADOR";
+            if ("BLANCO".equals(tablero.hayGanador())) {
+                respuesta = "GANADORB";
                 this.isTerminada = true;
+
+            } else if ("NEGRO".equals(tablero.hayGanador())) {
+                respuesta = "GANADORN";
+                this.isTerminada = true;
+
             } else if (true) { //poner algo aca en vez de true
                 respuesta = "EMPATE";
+
             } else {
                 cambiarTurno();
             }

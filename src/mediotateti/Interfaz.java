@@ -27,28 +27,7 @@ public class Interfaz {
 
                     break;
                 case 2:
-                    if (sistema.getListaJugadores().size() > 1) {
-
-                        mostarLista(sistema);
-                        int blanco = ingresarNum("Elija al jugador 1 (Blanco): ", 1, sistema.getListaJugadores().size()) - 1;
-
-                        int negro = ingresarNum("Elija al jugador 2 (Negro): ", 1, sistema.getListaJugadores().size()) - 1;
-                        while (negro == blanco) {
-                            negro = ingresarNum("No puede ser el mismo, prueba de nuevo:", 1, sistema.getListaJugadores().size());
-                        }
-
-                        Partida partida = new Partida(
-                                sistema.getListaJugadores().get(blanco),
-                                sistema.getListaJugadores().get(negro));
-
-                        jugarPartida(partida);
-
-                    } else {
-
-                        System.out.println("Debe crear al menos 2 jugadores.");
-
-                    }
-
+                    jugarPartida(sistema);
                     break;
                 case 3:
                     //hacer
@@ -122,40 +101,58 @@ public class Interfaz {
         return texto;
     }
 
-    private static void jugarPartida(Partida partida) {
+    private static void jugarPartida(Sistema sistema) {
         Scanner in = new Scanner(System.in);
+        if (sistema.getListaJugadores().size() > 1) {
+            mostarLista(sistema);
+            int blanco = ingresarNum("Elija al jugador 1 (blanco, circulos): ", 1, sistema.getListaJugadores().size()) - 1;
 
-        while (!partida.getIsTerminada()) {
-            String turno = "";
-            if (partida.getTurnoBlanco()) {
-                turno = "blanco (" + partida.getBlanco().getNombre() + ", Circulos)";
-            } else {
-                turno = "negro (" + partida.getNegro().getNombre() + ", Cruces)";
+            int negro = ingresarNum("Elija al jugador 2 (Negro, cruces): ", 1, sistema.getListaJugadores().size()) - 1;
+            while (negro == blanco) {
+                negro = ingresarNum("No puede ser el mismo, prueba de nuevo:", 1, sistema.getListaJugadores().size());
+            }
+
+            Partida partida = new Partida(
+                    sistema.getListaJugadores().get(blanco),
+                    sistema.getListaJugadores().get(negro));
+
+            while (!partida.getIsTerminada()) {
+                String turno = "";
+                if (partida.getTurnoBlanco()) {
+                    turno = "blanco (" + partida.getBlanco().getNombre() + ", circulos)";
+                } else {
+                    turno = "negro (" + partida.getNegro().getNombre() + ", cruces)";
+                }
+
+                System.out.println(partida.getTablero().toString());
+                System.out.println("Turno del " + turno);
+
+                String jugada = noVacio("Ingrese su jugada (ej...): ").trim();
+
+                String resultado = partida.jugarTurno(jugada);
+
+                switch (resultado) {
+                    case "INVALIDA":
+                        System.out.println("Jugada invalida, intente nuevamente.");
+                        break;
+                    case "GANADORB":
+                        System.out.println("Hay ganador, felicitaciones jugador blanco!");
+                        break;
+                    case "GANADORN":
+                        System.out.println("Hay ganador, felicitaciones jugador negro!");
+                        break;
+                    case "EMPATE":
+                        System.out.println("Empate!");
+                        break;
+                }
             }
 
             System.out.println(partida.getTablero().toString());
-            System.out.println("Turno del " + turno);
+            System.out.println("La partida termino!");
+        } else {
+            System.out.println("Debe crear al menos 2 jugadores.");
 
-            String jugada = noVacio("Ingrese su jugada (ej...): ").trim();
-
-            String resultado = partida.jugarTurno(jugada);
-
-            switch (resultado) {
-                case "INVALIDA":
-                    System.out.println("Jugada invalida, intente nuevamente.");
-                    break;
-                case "GANADOR":
-                    System.out.println("Hay un ganador!");
-                    break;
-                case "EMPATE":
-                    System.out.println("Empate!");
-                    break;
-            }
         }
-
-        System.out.println(partida.getTablero().toString());
-        System.out.println("La partida termino!");
-
     }
 
 }
