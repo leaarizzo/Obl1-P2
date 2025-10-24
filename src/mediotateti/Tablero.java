@@ -11,7 +11,7 @@ public class Tablero {
     }
 
     public boolean ingresarJugada(String jugada) {
-        return true; //aca vemos si la jugada q nos dieron tiene sentido, si lo tiene la ingresamos y devolvemos true
+        return false; //aca vemos si la jugada q nos dieron tiene sentido, si lo tiene la ingresamos y devolvemos true
         // sino, devolvemos false y no la ingresamos
     }
 
@@ -23,31 +23,79 @@ public class Tablero {
         return false;
     }
 
-    public boolean estaLleno() {
-        return false;
+    private String[] celda(String pieza) {
+        String[] celda = {"  ", "  ", "  "};
+        String p = "";
+
+        if (pieza != null) {
+            switch (pieza.charAt(1)) {
+                case 'B':
+                    p = "○";
+                    break;
+                case 'N':
+                    p = "●";
+                    break;
+                case 'C': //GC
+                    p = "O";
+                    break;
+                case 'X': //GX
+                    p = "X";
+                    break;
+            }
+
+            switch (pieza.charAt(0)) {
+                case 'C':
+                    celda[0] = " " + p;
+                    celda[1] = p + " ";
+                    celda[2] = " " + p;
+                    break;
+                case 'D':
+                    celda[0] = p + " ";
+                    celda[1] = " " + p;
+                    celda[2] = p + " ";
+                    break;
+                case 'G': //RESLTAR GANADOR
+                    celda[0] = p + p;
+                    celda[1] = p + p;
+                    celda[2] = p + p;
+                    break;
+            }
+        }
+
+        return celda;
     }
 
     @Override
     public String toString() {
-        String texto = "";
-        String titulos = "";
-        
-        for (int i = 0; i < mat.length; i++) {
-            String fila = "";
-            for (int j = 0; j < mat[0].length; j++) {
-                if (mat[i][j] == "d") {
-                    fila += 0;
-                }
-            }
-            System.out.println();
-        }
-        
-        String texto2 = texto;
+        String texto = "+--+--+--+--+--+--+\n";
+        String[] letras = {"A", "B", "C"};
+
         if (mostrarTitulos) {
-            texto2 += titulos;
+            texto = "   1  2  3  4  5  6\n" + " " + texto;
         }
-        
-        //aca vamos a hacer el mostrartablero, se tiene q verificar si hay q mostrar los titulos
+
+        for (int i = 0; i < this.mat.length; i++) {
+            String linea1 = "";
+            String linea2 = "";
+            String linea3 = "";
+            for (int j = 0; j < this.mat[i].length; j++) {
+                String[] c = celda(mat[i][j]);
+                linea1 += "|" + c[0];
+                linea2 += "|" + c[1];
+                linea3 += "|" + c[2];
+
+            }
+
+            if (mostrarTitulos) {
+                linea1 = " " + linea1;
+                linea2 = letras[i] + linea2;
+                linea3 = " " + linea3;
+            }
+
+            texto += linea1 + "|\n" + linea2 + "|\n" + linea3 + "|\n";
+            texto += "+--+--+--+--+--+--+\n";
+        }
+
         // tambien verificar si hubo ganador, y resaltar jugada
         // y capaz las posibles jugadas
         return texto;
